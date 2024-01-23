@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.garage.viewModel.CarViewModel" />
+        <variable
+            name="addFragment"
+            type="com.example.garage.ui.AddCarFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.AddCarFragment"
+        android:paddingTop="32dp"
+        android:padding="@dimen/big_margin"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/brand_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/brand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/brand_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textAutoComplete"
+                android:padding="@dimen/big_margin"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/model_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/model"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/brand_label"
+            app:layout_constraintTop_toBottomOf="@id/brand_label"
+            >
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/model_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:completionThreshold="1"
+                android:padding="@dimen/big_margin"
+                android:inputType="textAutoComplete"
+                android:singleLine="true"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/km_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/km"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/model_label"
+            app:layout_constraintTop_toBottomOf="@id/model_label"
+            app:layout_constraintEnd_toStartOf="@id/year_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/km_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/year_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/year"
+            app:layout_constraintStart_toEndOf="@id/km_label"
+            app:layout_constraintTop_toTopOf="@id/km_label"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/year_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="date"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/displacement_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/displacement"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/km_label"
+            app:layout_constraintTop_toBottomOf="@id/km_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/displacement_input"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/supply_label"
+            android:background="@drawable/spinner_back"
+            android:padding="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/displacement_label"
+            app:layout_constraintTop_toBottomOf="@id/displacement_label">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/supply_input"
+                android:minHeight="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/plate_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/plate"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/supply_label"
+            app:layout_constraintTop_toBottomOf="@id/supply_label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/plate_input"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:singleLine="true"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:padding="16dp"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plate_label" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

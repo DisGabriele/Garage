@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="isOpen"
+            type="Boolean" />
+        <variable
+            name="viewModel"
+            type="com.example.garage.viewModel.CarViewModel" />
+        <variable
+            name="detailFragment"
+            type="com.example.garage.ui.CarDetailFragment" />
+    </data>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingTop="32dp"
+        android:padding="@dimen/big_margin">
+
+        <ImageView
+            android:id="@+id/car_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            tools:src="@drawable/gt_r_logo_640x454"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            carImage="@{viewModel.currentCar.logo}"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/brand_label_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:layout_marginTop="@dimen/big_margin"
+            android:background="?attr/colorOnPrimaryFixedVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/car_image">
+
+            <TextView
+                android:id="@+id/brand_detail"
+                style="@style/Widget.Garage.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/background"
+                android:padding="@dimen/big_margin"
+                android:singleLine="true"
+                tools:text="@string/brand"
+                carBrand="@{viewModel.currentCar.brand}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/model_label_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:background="?attr/colorOnPrimaryFixedVariant"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/brand_label_detail"
+            app:layout_constraintTop_toBottomOf="@id/brand_label_detail">
+
+            <TextView
+                android:id="@+id/model_detail"
+                style="@style/Widget.Garage.TextView"
+                android:background="?attr/background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/big_margin"
+                tools:text="@string/model"
+                carModel="@{viewModel.currentCar.model}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/km_label_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:background="?attr/colorOnPrimaryFixedVariant"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/model_label_detail"
+            app:layout_constraintTop_toBottomOf="@id/model_label_detail"
+            app:layout_constraintEnd_toStartOf="@id/year_label_detail">
+
+            <TextView
+                android:id="@+id/km_detail"
+                style="@style/Widget.Garage.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/background"
+                android:padding="@dimen/big_margin"
+                tools:text="@string/km"
+                carKm="@{viewModel.currentCar.km}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/year_label_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:background="?attr/colorOnPrimaryFixedVariant"
+            app:layout_constraintStart_toEndOf="@id/km_label_detail"
+            app:layout_constraintTop_toTopOf="@id/km_label_detail"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/year_detail"
+                style="@style/Widget.Garage.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/background"
+                android:padding="@dimen/big_margin"
+                tools:text="@string/year"
+                carYear="@{viewModel.currentCar.year}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/displacement_label_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:background="?attr/colorOnPrimaryFixedVariant"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/km_label_detail"
+            app:layout_constraintTop_toBottomOf="@id/km_label_detail">
+
+            <TextView
+                android:id="@+id/displacement_detail"
+                style="@style/Widget.Garage.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/background"
+                android:padding="@dimen/big_margin"
+                tools:text="@string/displacement"
+                carDisplacement="@{viewModel.currentCar.displacement}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/supply_label_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:background="?attr/colorOnPrimaryFixedVariant"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/displacement_label_detail"
+            app:layout_constraintTop_toBottomOf="@id/displacement_label_detail">
+
+            <TextView
+                android:id="@+id/supply_detail"
+                style="@style/Widget.Garage.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/background"
+                android:padding="@dimen/big_margin"
+                tools:text="@string/supply"
+                carSupply="@{viewModel.currentCar.supply}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/plate_label_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:background="?attr/colorOnPrimaryFixedVariant"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintStart_toStartOf="@id/supply_label_detail"
+            app:layout_constraintTop_toBottomOf="@id/supply_label_detail">
+
+            <TextView
+                android:id="@+id/plate_detail"
+                style="@style/Widget.Garage.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/background"
+                android:padding="@dimen/big_margin"
+                tools:text="@string/plate"
+                carPlate="@{viewModel.currentCar.plate}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.circularreveal.CircularRevealFrameLayout
+        android:id="@+id/buttonContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/floatButton"
+        app:layout_constraintRight_toRightOf="@id/floatButton"
+        android:visibility="@{isOpen ? 0 : 4}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_car_btn"
+                style="@style/Widget.Garage.FloatButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="@dimen/big_margin"
+                app:maxImageSize="32dp" />
+
+            <TextView
+                android:id="@+id/edit_car_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/edit_car_btn"
+                app:layout_constraintEnd_toEndOf="@id/edit_car_btn"
+                app:layout_constraintBottom_toBottomOf="@id/edit_car_btn"
+                style="@style/Widget.Garage.TextView"
+                android:textColor="@color/white"
+                android:background="@drawable/float_back"
+                android:paddingEnd="36dp"
+                android:paddingStart="8dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/edit"
+                />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toBottomOf="@id/edit_car_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/edit_car_btn"
+                style="@style/Widget.Garage.FloatButton"
+                app:maxImageSize="40dp"
+                android:src="@drawable/ic_remove_car"
+                android:layout_marginVertical="@dimen/big_margin"
+                />
+
+            <TextView
+                android:id="@+id/remove_car_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/delete_btn"
+                app:layout_constraintEnd_toEndOf="@id/delete_btn"
+                app:layout_constraintBottom_toBottomOf="@id/delete_btn"
+                style="@style/Widget.Garage.TextView"
+                android:textColor="@color/white"
+                android:background="@drawable/float_back"
+                android:paddingEnd="36dp"
+                android:paddingStart="8dp"
+                android:layout_marginEnd="24dp"
+                android:text="@string/remove"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.circularreveal.CircularRevealFrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        style="@style/Widget.Garage.FloatButton"
+        android:visibility="visible"
+        tools:src="@drawable/ic_menu"
+        android:src="@{isOpen? @drawable/ic_cancel : @drawable/ic_menu}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</layout>
