@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Garage</string>
+    <string name="garage_reminder">Ricordarmi di fare il tagliando…</string>
+    <string name="notification_title">Tagliando</string>
+    <string name="notification_body">%1$s ha superato 10.000 Km, ricordati di fare il tagliando</string>
+    <string name="add_car">Aggiungi Auto</string>
+    <string name="model">Modello</string>
+    <string name="brand">Marca</string>
+    <string name="year">Anno</string>
+    <string name="km">Km</string>
+    <string name="displacement">Cilindrata</string>
+    <string name="supply">Alimentazione</string>
+    <string name="plate">Targa</string>
+    <string name="save">Salva</string>
+    <string name="my_garage">Il Mio Garage</string>
+    <string name="add_a_car">Aggiungi un\'auto</string>
+    <string name="error_message">Compilare tutti i campi!</string>
+    <string name="year_error_message">Inserire un\'anno Valido</string>
+    <string name="negative_km_error_message">Inserire almeno 0 Km!</string>
+    <string name="supply_error_message">Inserire un\'alimentazione valida!</string>
+    <string name="less_km_error_message">Non puoi ridurre i Km percorsi di una macchina!</string>
+    <string name="delete">Rimuovi</string>
+    <string name="delete_dialog">Rimuovere %1$s  %2$s dal garage?</string>
+    <string name="delete_confirmed">%1$s  %2$s è stata rimossa</string>
+    <string name="confirm_dialog">Si</string>
+    <string name="search">Marca,modello,targa</string>
+    <string name="edit">Modifica</string>
+    <string name="remove">Rimuovi</string>
+    <array name="supply_list">
+        <item>GAS</item>
+        <item>DIESEL</item>
+        <item>ELETTRICA</item>
+        <item>IBRIDA</item>
+        <item>GPL</item>
+    </array>
+</resources>

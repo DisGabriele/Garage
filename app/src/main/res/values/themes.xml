@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Garage" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimary">@color/blue_dark</item>
+        <item name="colorPrimaryVariant">@color/blue_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimaryFixedVariant">@color/light_grey</item>
+        <item name="background">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/blue_light</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.Primary</item>
+        <!-- Text input fields -->
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <!-- Radio buttons -->
+        <item name="radioButtonStyle">@style/Widget.Garage.CompoundButton.RadioButton</item>
+        <!-- Switches -->
+        <item name="switchStyle">@style/Widget.Garage.CompoundButton.Switch</item>
+        <!-- Float Button -->
+        <item name="floatingActionButtonStyle">@style/Widget.Garage.FloatButton</item>
+    </style>
+
+    <style name="Theme.Garage" parent="Base.Theme.Garage" />
+</resources>

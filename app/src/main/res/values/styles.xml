@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.Garage.FloatButton" parent="Widget.Design.FloatingActionButton">
+        <item name="android:backgroundTint">@color/blue_dark</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="Widget.Garage.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="Widget.Garage.CompoundButton.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="Widget.Garage.CompoundButton.RadioButton"
+        parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:paddingStart">5dp</item>
+    </style>
+</resources>

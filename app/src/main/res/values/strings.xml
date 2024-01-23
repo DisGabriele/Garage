@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name" translatable="false">Garage</string>
+    <string name="channel_name" translatable="false">garage_channel</string>
+    <string name="channel_description" translatable="false">garage_reminder</string>
+    <string name="garage_reminder">Remind me to service the car…</string>
+    <string name="notification_title">Car Service Reminder</string>
+    <string name="notification_body">%1$s has surpassed 10.000 Km, it\'s time to service it</string>
+    <string name="add_car">Add a car</string>
+    <string name="model">Model</string>
+    <string name="brand">Brand</string>
+    <string name="year">Year</string>
+    <string name="km">Km</string>
+    <string name="displacement">Displacement</string>
+    <string name="supply">Supply</string>
+    <string name="plate">Plate</string>
+    <string name="save">Save</string>
+    <string name="my_garage">My Garage</string>
+    <string name="add_a_car">Add a Car</string>
+    <string name="error_message">Fill every entry!</string>
+    <string name="year_error_message">Set a Valid Year</string>
+    <string name="negative_km_error_message">You can\'t give negative Km!</string>
+    <string name="supply_error_message">Enter a valid Supply!</string>
+    <string name="less_km_error_message">You can\'t reduce the kilometers traveled by a car!</string>
+    <string name="delete">Delete</string>
+    <string name="delete_dialog">Remove %1$s  %2$s from the garage?</string>
+    <string name="delete_confirmed">%1$s  %2$s has been removed</string>
+    <string name="confirm_dialog">Yes</string>
+    <string name="search">Brand,model,plate</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <array name="supply_list">
+        <item>GASOLINE</item>
+        <item>DIESEL</item>
+        <item>ELECTRIC</item>
+        <item>HYBRID</item>
+        <item>GPL</item>
+    </array>
+</resources>

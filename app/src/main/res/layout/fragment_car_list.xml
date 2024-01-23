@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listFragment"
+            type="com.example.garage.ui.CarListFragment" />
+        <variable
+            name="viewModel"
+            type="com.example.garage.viewModel.CarViewModel" />
+        <variable
+            name="isOpen"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.CarListFragment">
+
+        <androidx.slidingpanelayout.widget.SlidingPaneLayout
+            android:id="@+id/carsPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/carsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="3"
+                android:clipToPadding="true"
+                tools:listitem="@layout/item_list"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <com.google.android.material.circularreveal.CircularRevealFrameLayout
+                android:id="@+id/buttonContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/floatButton"
+                app:layout_constraintRight_toRightOf="@id/floatButton"
+                android:visibility="@{isOpen ? 0 : 4}">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/add_car"
+                        style="@style/Widget.Garage.FloatButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_add_car"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginBottom="@dimen/big_margin"
+                        app:maxImageSize="45dp" />
+
+                    <TextView
+                        android:id="@+id/add_car_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@id/add_car"
+                        app:layout_constraintEnd_toEndOf="@id/add_car"
+                        app:layout_constraintBottom_toBottomOf="@id/add_car"
+                        style="@style/Widget.Garage.TextView"
+                        android:textColor="@color/white"
+                        android:background="@drawable/float_back"
+                        android:paddingEnd="36dp"
+                        android:paddingStart="8dp"
+                        android:layout_marginEnd="24dp"
+                        android:text="@string/add_a_car"
+                        />
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/search_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/big_margin"
+                        android:background="@drawable/search_back"
+                        android:elevation="4dp"
+                        android:inputType="text"
+                        app:iconifiedByDefault="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/add_car_text"
+                        app:layout_constraintTop_toBottomOf="@id/add_car"
+                        app:searchIcon="@drawable/ic_search" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.circularreveal.CircularRevealFrameLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="@dimen/big_margin"
+                android:layout_marginEnd="@dimen/big_margin"
+                style="@style/Widget.Garage.FloatButton"
+                android:visibility="visible"
+                tools:src="@drawable/ic_menu"
+                android:src="@{isOpen? @drawable/ic_cancel : @drawable/ic_menu}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/detail_container"
+                android:name="com.example.garage.ui.CarDetailFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                />
+
+        </androidx.slidingpanelayout.widget.SlidingPaneLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
