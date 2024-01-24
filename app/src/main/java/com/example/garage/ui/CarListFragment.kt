@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,6 +16,7 @@ import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.slidingpanelayout.widget.SlidingPaneLayout
+import com.example.garage.R
 import com.example.garage.adapters.CarListAdapter
 import com.example.garage.database.BaseApplication
 import com.example.garage.database.Car
@@ -82,6 +85,34 @@ class CarListFragment : Fragment() {
             binding.isOpen = false
         }
 
+        if(resources.configuration.screenWidthDp > 600){
+            binding.editCarBtn?.setOnClickListener{
+                val action = CarListFragmentDirections
+                    .actionCarListFragmentToAddCarFragment(true)
+                findNavController().navigate(action)
+            }
+
+            binding.editCarText?.setOnClickListener{
+                binding.editCarBtn?.performClick()
+            }
+
+            binding.deleteBtn?.setOnClickListener{
+                carViewModel.showDialog(it.context)
+                    .setPositiveButton(it.context.getString(R.string.confirm_dialog)) { _, _ ->
+                        Toast.makeText(context,it.context.getString(R.string.delete_confirmed,carViewModel.currentCar.value?.brand,carViewModel.currentCar.value?.model),
+                            Toast.LENGTH_SHORT).show()
+                        carViewModel.setDeletion(true)
+                        carViewModel.currentCar
+                        binding.isOpen = false
+                    }
+                    .show()
+            }
+
+            binding.removeCarText?.setOnClickListener{
+                binding.deleteBtn?.performClick()
+            }
+        }
+
 
         val adapter = CarListAdapter(carViewModel) { car ->
             carViewModel.updateCurrentCar(car)
@@ -131,6 +162,10 @@ class CarListFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        binding.addCarText.setOnClickListener{
+            binding.addCar.performClick()
+        }
+
 
         carViewModel.deletion.observe(viewLifecycleOwner) {
             if (it == true) {
@@ -152,9 +187,8 @@ class CarListFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 adapter.submitList(
                     carViewModel.carsList.value?.filter { car ->
-                        car.brand.contains(newText.toString(), true) ||
-                                car.model.contains(newText.toString(), true) ||
-                                car.plate.contains(newText.toString(), true)
+                                car.brand.startsWith(newText.toString(), true) ||
+                                car.model.startsWith(newText.toString(), true)
                     }
                 )
                 return true

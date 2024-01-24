@@ -63,77 +63,6 @@
                 tools:listitem="@layout/item_list"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            <com.google.android.material.circularreveal.CircularRevealFrameLayout
-                android:id="@+id/buttonContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/floatButton"
-                app:layout_constraintRight_toRightOf="@id/floatButton"
-                android:visibility="@{isOpen ? 0 : 4}">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/add_car"
-                        style="@style/Widget.Garage.FloatButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_add_car"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginBottom="@dimen/big_margin"
-                        app:maxImageSize="45dp" />
-
-                    <TextView
-                        android:id="@+id/add_car_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="@id/add_car"
-                        app:layout_constraintEnd_toEndOf="@id/add_car"
-                        app:layout_constraintBottom_toBottomOf="@id/add_car"
-                        style="@style/Widget.Garage.TextView"
-                        android:textColor="@color/white"
-                        android:background="@drawable/float_back"
-                        android:paddingEnd="36dp"
-                        android:paddingStart="8dp"
-                        android:layout_marginEnd="24dp"
-                        android:text="@string/add_a_car"
-                        />
-
-                    <androidx.appcompat.widget.SearchView
-                        android:id="@+id/search_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/big_margin"
-                        android:background="@drawable/search_back"
-                        android:elevation="4dp"
-                        android:inputType="text"
-                        app:iconifiedByDefault="false"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="@+id/add_car_text"
-                        app:layout_constraintTop_toBottomOf="@id/add_car"
-                        app:searchIcon="@drawable/ic_search" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.circularreveal.CircularRevealFrameLayout>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginBottom="@dimen/big_margin"
-                android:layout_marginEnd="@dimen/big_margin"
-                style="@style/Widget.Garage.FloatButton"
-                android:visibility="visible"
-                tools:src="@drawable/ic_menu"
-                android:src="@{isOpen? @drawable/ic_cancel : @drawable/ic_menu}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,5 +80,142 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.slidingpanelayout.widget.SlidingPaneLayout>
+
+        <com.google.android.material.circularreveal.CircularRevealFrameLayout
+            android:id="@+id/buttonContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/floatButton"
+            app:layout_constraintRight_toRightOf="@id/floatButton"
+            android:visibility="@{isOpen ? 0 : 4}">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/edit_car_btn"
+                    style="@style/Widget.Garage.FloatButton"
+                    android:elevation="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_edit"
+                    android:visibility="@{viewModel.carsList.size() == 0 ? 4 : 0}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="@dimen/big_margin"
+                    app:maxImageSize="32dp" />
+
+                <TextView
+                    android:id="@+id/edit_car_text"
+                    style="@style/Widget.Garage.TextView"
+                    android:elevation="-1dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/float_back"
+                    android:paddingEnd="40dp"
+                    android:visibility="@{viewModel.carsList.size() == 0 ? 4 : 0}"
+                    android:gravity="end|center_vertical"
+                    android:text="@string/edit"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_car_btn"
+                    app:layout_constraintEnd_toEndOf="@id/edit_car_btn"
+                    app:layout_constraintStart_toStartOf="@+id/remove_car_text"
+                    app:layout_constraintTop_toTopOf="@id/edit_car_btn" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/delete_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/edit_car_btn"
+                    app:layout_constraintBottom_toTopOf="@id/add_car"
+                    app:layout_constraintEnd_toEndOf="@id/edit_car_btn"
+                    android:visibility="@{viewModel.carsList.size() == 0 ? 4 : 0}"
+                    style="@style/Widget.Garage.FloatButton"
+                    android:elevation="8dp"
+                    app:maxImageSize="40dp"
+                    android:src="@drawable/ic_remove_car"
+                    android:layout_marginVertical="@dimen/big_margin"
+                    />
+
+                <TextView
+                    android:id="@+id/remove_car_text"
+                    style="@style/Widget.Garage.TextView"
+                    android:elevation="-1dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/float_back"
+                    android:paddingEnd="40dp"
+                    android:gravity="end|center_vertical"
+                    android:text="@string/remove"
+                    android:textColor="@color/white"
+                    android:visibility="@{viewModel.carsList.size() == 0 ? 4 : 0}"
+                    app:layout_constraintBottom_toBottomOf="@id/delete_btn"
+                    app:layout_constraintEnd_toEndOf="@id/delete_btn"
+                    app:layout_constraintStart_toStartOf="@+id/add_car_text"
+                    app:layout_constraintTop_toTopOf="@id/delete_btn" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_car"
+                    style="@style/Widget.Garage.FloatButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_car"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/delete_btn"
+                    android:layout_marginVertical="@dimen/big_margin"
+                    app:maxImageSize="45dp" />
+
+                <TextView
+                    android:id="@+id/add_car_text"
+                    style="@style/Widget.Garage.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/float_back"
+                    android:gravity="end|center_vertical"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="36dp"
+                    android:text="@string/add_a_car"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/add_car"
+                    app:layout_constraintEnd_toEndOf="@id/add_car"
+                    app:layout_constraintTop_toTopOf="@id/add_car" />
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/big_margin"
+                    android:background="@drawable/search_back"
+                    android:elevation="4dp"
+                    android:inputType="text"
+                    app:iconifiedByDefault="false"
+                    android:visibility="@{viewModel.carsList.size() == 0 ? 8 : 0}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/add_car_text"
+                    app:layout_constraintTop_toBottomOf="@id/add_car"
+                    app:searchIcon="@drawable/ic_search" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.circularreveal.CircularRevealFrameLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/big_margin"
+            style="@style/Widget.Garage.FloatButton"
+            android:visibility="visible"
+            tools:src="@drawable/ic_menu"
+            android:src="@{isOpen? @drawable/ic_cancel : @drawable/ic_menu}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

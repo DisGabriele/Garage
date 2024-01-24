@@ -159,7 +159,7 @@ class AddCarFragment : Fragment() {
             status = ValidationError.EMPTY
             Toast.makeText(context,resources.getString(R.string.error_message),Toast.LENGTH_SHORT).show()
         }
-        else if(binding.yearInput.text.toString().toInt() > Calendar.getInstance().get(Calendar.YEAR))
+        else if(binding.yearInput.text.toString().toInt() > Calendar.getInstance().get(Calendar.YEAR) && binding.yearInput.text.toString().toInt() > 1886)
         {
             status = ValidationError.YEAR
             Toast.makeText(context,resources.getString(R.string.year_error_message),Toast.LENGTH_SHORT).show()

@@ -12,8 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.garage.R
 import com.example.garage.database.BaseApplication
 import com.example.garage.databinding.FragmentCarDetailBinding
+import com.example.garage.databinding.FragmentCarDetailBindingLargeImpl
 import com.example.garage.viewModel.CarViewModel
 import com.example.garage.viewModel.CarViewModelFactory
+import kotlin.reflect.jvm.internal.impl.types.checker.TypeRefinementSupport.Enabled
 
 class CarDetailFragment() : Fragment() {
 
@@ -63,13 +65,17 @@ class CarDetailFragment() : Fragment() {
             binding?.isOpen = !binding?.isOpen!!
         }
 
-        binding.editCarBtn.setOnClickListener{
+        binding.editCarBtn?.setOnClickListener{
             val action = CarListFragmentDirections
                 .actionCarListFragmentToAddCarFragment(true)
             findNavController().navigate(action)
         }
 
-        binding.deleteBtn.setOnClickListener{
+        binding.editCarText?.setOnClickListener{
+            binding.editCarBtn?.performClick()
+        }
+
+        binding.deleteBtn?.setOnClickListener{
             carViewModel.showDialog(it.context)
                 .setPositiveButton(it.context.getString(R.string.confirm_dialog)) { _, _ ->
                     Toast.makeText(context,it.context.getString(R.string.delete_confirmed,carViewModel.currentCar.value?.brand,carViewModel.currentCar.value?.model),
@@ -79,6 +85,10 @@ class CarDetailFragment() : Fragment() {
                     binding.isOpen = false
                 }
                 .show()
+        }
+
+        binding.removeCarText?.setOnClickListener{
+            binding.deleteBtn?.performClick()
         }
     }
 }
