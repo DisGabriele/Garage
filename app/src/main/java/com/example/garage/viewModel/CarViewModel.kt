@@ -2,6 +2,7 @@ package com.example.garage.viewModel
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
 
 class CarViewModel(application: Application, private val carDao: CarDao): ViewModel() {
 
-    val carsList: LiveData<List<Car>> = collectCars().asLiveData()
+    val carsList: LiveData<MutableList<Car>> = collectCars().asLiveData()
 
     private var _deletion: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     val deletion: LiveData<Boolean> get() = _deletion
@@ -82,9 +83,10 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
             currentCar.value?.let { carDao.delete(it)
             }
         }
+
     }
 
-    fun collectCars(): Flow<List<Car>> = carDao.getAll().flowOn(Dispatchers.IO)
+    fun collectCars(): Flow<MutableList<Car>> = carDao.getAll().flowOn(Dispatchers.IO)
 
     private fun insertCar(item: Car) {
         viewModelScope.launch {
@@ -112,6 +114,7 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
             plate = plate,
             km = km
         )
+        updateCurrentCar(car)
         insertCar(car)
     }
 

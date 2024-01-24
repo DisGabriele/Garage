@@ -50,13 +50,3 @@ fun loadImage(imageView: ImageView, data: String?) {
         error(R.drawable.ic_car)
     }
 }
-
-@BindingAdapter("constraintForeground")
-fun loadForeground(constraint: ConstraintLayout, data: String?) {
-    if(data == "empty"){
-        constraint.visibility = View.INVISIBLE
-    }
-    else{
-        constraint.visibility = View.VISIBLE
-    }
-}

@@ -71,6 +71,7 @@
                 android:name="com.example.garage.ui.CarDetailFragment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:visibility="@{viewModel.carsList.size() == 0 ? 4 : 0}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -87,6 +88,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/floatButton"
             app:layout_constraintRight_toRightOf="@id/floatButton"
+            android:layout_marginBottom="@dimen/big_margin"
             android:visibility="@{isOpen ? 0 : 4}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -189,7 +191,7 @@
                     android:id="@+id/search_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/big_margin"
+                    android:layout_marginTop="@dimen/big_margin"
                     android:background="@drawable/search_back"
                     android:elevation="4dp"
                     android:inputType="text"

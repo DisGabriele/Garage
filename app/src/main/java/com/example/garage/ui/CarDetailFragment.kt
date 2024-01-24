@@ -81,7 +81,6 @@ class CarDetailFragment() : Fragment() {
                     Toast.makeText(context,it.context.getString(R.string.delete_confirmed,carViewModel.currentCar.value?.brand,carViewModel.currentCar.value?.model),
                         Toast.LENGTH_SHORT).show()
                     carViewModel.setDeletion(true)
-                    carViewModel.currentCar
                     binding.isOpen = false
                 }
                 .show()

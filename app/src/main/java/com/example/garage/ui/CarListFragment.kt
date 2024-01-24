@@ -101,9 +101,7 @@ class CarListFragment : Fragment() {
                     .setPositiveButton(it.context.getString(R.string.confirm_dialog)) { _, _ ->
                         Toast.makeText(context,it.context.getString(R.string.delete_confirmed,carViewModel.currentCar.value?.brand,carViewModel.currentCar.value?.model),
                             Toast.LENGTH_SHORT).show()
-                        carViewModel.setDeletion(true)
-                        carViewModel.currentCar
-                        binding.isOpen = false
+                        carViewModel.deleteCar()
                     }
                     .show()
             }
@@ -129,20 +127,6 @@ class CarListFragment : Fragment() {
                 if(!carViewModel.currentCar.isInitialized){
                 carViewModel.updateCurrentCar(carList[0])
                 }
-            } else {
-                carViewModel.updateCurrentCar(
-                    Car(
-                        0L,
-                        "",
-                        0,
-                        "empty",
-                        "",
-                        0,
-                        "",
-                        "",
-                        0.toDouble()
-                    )
-                )
             }
         }
 

@@ -148,18 +148,18 @@ class AddCarFragment : Fragment() {
     }
 
     private fun isValidEntry(){
-        if(     binding.brandInput.text.isNullOrEmpty() &&
-                binding.modelInput.text.isNullOrEmpty() &&
-                binding.kmInput.text.isNullOrEmpty() &&
-                binding.yearInput.text.isNullOrEmpty() &&
-                binding.displacementInput.text.isNullOrEmpty() &&
+        if(     binding.brandInput.text.isNullOrEmpty() ||
+                binding.modelInput.text.isNullOrEmpty() ||
+                binding.kmInput.text.isNullOrEmpty() ||
+                binding.yearInput.text.isNullOrEmpty() ||
+                binding.displacementInput.text.isNullOrEmpty() ||
                 binding.plateInput.text.isNullOrEmpty()
             )
         {
             status = ValidationError.EMPTY
             Toast.makeText(context,resources.getString(R.string.error_message),Toast.LENGTH_SHORT).show()
         }
-        else if(binding.yearInput.text.toString().toInt() > Calendar.getInstance().get(Calendar.YEAR) && binding.yearInput.text.toString().toInt() > 1886)
+        else if(binding.yearInput.text.toString().toInt() > Calendar.getInstance().get(Calendar.YEAR) || binding.yearInput.text.toString().toInt() < 1886)
         {
             status = ValidationError.YEAR
             Toast.makeText(context,resources.getString(R.string.year_error_message),Toast.LENGTH_SHORT).show()
@@ -167,6 +167,9 @@ class AddCarFragment : Fragment() {
         else if(binding.kmInput.text.toString().toDouble() < 0){
             status = ValidationError.KM
             Toast.makeText(context,resources.getString(R.string.negative_km_error_message),Toast.LENGTH_SHORT).show()
+        }
+        else{
+            status = ValidationError.GOOD
         }
     }
 

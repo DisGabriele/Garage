@@ -62,6 +62,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/floatButton"
                 app:layout_constraintRight_toRightOf="@id/floatButton"
+                android:layout_marginBottom="@dimen/big_margin"
                 android:visibility="@{isOpen ? 0 : 4}">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,8 +101,9 @@
                         android:id="@+id/search_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/big_margin"
+                        android:layout_marginTop="@dimen/big_margin"
                         android:background="@drawable/search_back"
+                        android:visibility="@{viewModel.carsList.size() == 0 ? 8 : 0}"
                         android:elevation="4dp"
                         android:inputType="text"
                         app:iconifiedByDefault="false"

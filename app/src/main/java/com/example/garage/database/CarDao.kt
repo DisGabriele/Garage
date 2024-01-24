@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CarDao {
     @Query("SELECT * FROM car ORDER BY id ASC")
-    fun getAll(): Flow<List<Car>>
+    fun getAll(): Flow<MutableList<Car>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(car: Car)

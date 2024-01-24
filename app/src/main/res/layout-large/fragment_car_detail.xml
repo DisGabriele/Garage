@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingTop="32dp"
         android:padding="@dimen/big_margin"
-        constraintForeground="@{viewModel.currentCar.brand}">
+        >
 
         <ImageView
             android:id="@+id/car_image"
