@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -59,6 +60,16 @@ class AddCarFragment : Fragment() {
             viewModel = carViewModel
         }
 
+        val toolbar = binding.toolbar
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
+
         val logoNames = binding.viewModel!!.logoList.value!!.map{ logo ->
             logo.name.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(
@@ -85,6 +96,7 @@ class AddCarFragment : Fragment() {
             supplyList
             )
 
+        /*
         binding.modelInput.setOnFocusChangeListener{ model, _ ->
             if(model.hasFocus()){
                 binding.modelInput.showDropDown()
@@ -93,6 +105,7 @@ class AddCarFragment : Fragment() {
                 binding.modelInput.dismissDropDown()
             }
         }
+        */
 
         binding.brandInput.setAdapter(brandAdapter)
         binding.brandInput.doAfterTextChanged { brand ->
@@ -111,12 +124,14 @@ class AddCarFragment : Fragment() {
         binding.supplyInput.adapter = supplyAdapter
 
         if(!navigationArgs.addEdit) {
+            binding.toolbar?.title = resources.getString(R.string.add_a_car)
             binding.supplyInput.setSelection(0)
             binding.saveBtn.setOnClickListener {
                 addCar()
             }
         }
         else{
+            binding.toolbar?.title = resources.getString(R.string.edit)
             binding.brandInput.setText(carViewModel.currentCar.value?.brand)
             binding.modelInput.setText(carViewModel.currentCar.value?.model)
             binding.kmInput.setText(carViewModel.currentCar.value?.km.toString())

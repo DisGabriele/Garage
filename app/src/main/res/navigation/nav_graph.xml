@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/carListFragment"
         android:name="com.example.garage.ui.CarListFragment"
-        android:label="@string/my_garage"
         tools:layout="@layout/fragment_car_list">
         <action
             android:id="@+id/action_carListFragment_to_addCarFragment"
@@ -21,7 +20,7 @@
     <fragment
         android:id="@+id/addCarFragment"
         android:name="com.example.garage.ui.AddCarFragment"
-        android:label="@string/add_a_car" >
+        >
         <action
             android:id="@+id/action_addCarFragment_to_carListFragment"
             app:destination="@id/carListFragment"

@@ -28,7 +28,6 @@ class CarListFragment : Fragment() {
 
     private var _binding: FragmentCarListBinding? = null
     private val binding get() = _binding!!
-    private lateinit var carList: List<Car>
 
     class CarListOnBackPressedCallback(
         private val slidingPaneLayout: SlidingPaneLayout
@@ -66,6 +65,7 @@ class CarListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentCarListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,12 +75,13 @@ class CarListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply{
+        binding.apply {
             lifecycleOwner = viewLifecycleOwner
             listFragment = this@CarListFragment
             viewModel = carViewModel
             binding.isOpen = false
         }
+
 
         val adapter = CarListAdapter(carViewModel) { car ->
             carViewModel.updateCurrentCar(car)
@@ -91,10 +92,26 @@ class CarListFragment : Fragment() {
         binding.carsPanel.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
         binding.carsList.adapter = adapter
 
-        lifecycle.coroutineScope.launch {
-            carViewModel.collectCars().collect(){
-                carList = it
-                adapter.submitList(it)
+        carViewModel.carsList.observe(viewLifecycleOwner){carList ->
+            adapter.submitList(carList)
+            if (carList.isNotEmpty()) {
+                if(!carViewModel.currentCar.isInitialized){
+                carViewModel.updateCurrentCar(carList[0])
+                }
+            } else {
+                carViewModel.updateCurrentCar(
+                    Car(
+                        0L,
+                        "",
+                        0,
+                        "empty",
+                        "",
+                        0,
+                        "",
+                        "",
+                        0.toDouble()
+                    )
+                )
             }
         }
 
@@ -107,7 +124,7 @@ class CarListFragment : Fragment() {
             binding?.isOpen = !binding?.isOpen!!
         }
 
-        binding.addCar.setOnClickListener{
+        binding.addCar.setOnClickListener {
             binding.isOpen = false
             val action = CarListFragmentDirections
                 .actionCarListFragmentToAddCarFragment(false)
@@ -115,8 +132,8 @@ class CarListFragment : Fragment() {
         }
 
 
-        carViewModel.deletion.observe(viewLifecycleOwner){
-            if(it == true){
+        carViewModel.deletion.observe(viewLifecycleOwner) {
+            if (it == true) {
                 binding.carsPanel.closePane()
                 lifecycle.coroutineScope.launch {
                     carViewModel.deleteCar()
@@ -127,17 +144,17 @@ class CarListFragment : Fragment() {
 
 
         binding.searchBtn.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean{
+            override fun onQueryTextSubmit(query: String?): Boolean {
 
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 adapter.submitList(
-                    carList.filter {car ->
-                        car.brand.contains(newText.toString(),true) ||
-                                car.model.contains(newText.toString(),true) ||
-                                car.plate.contains(newText.toString(),true)
+                    carViewModel.carsList.value?.filter { car ->
+                        car.brand.contains(newText.toString(), true) ||
+                                car.model.contains(newText.toString(), true) ||
+                                car.plate.contains(newText.toString(), true)
                     }
                 )
                 return true
@@ -146,11 +163,11 @@ class CarListFragment : Fragment() {
         })
 
         binding.searchBtn.setOnCloseListener {
-            val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
-            adapter.submitList(carList)
+            adapter.submitList(carViewModel.carsList.value)
             true
         }
     }
-
 }

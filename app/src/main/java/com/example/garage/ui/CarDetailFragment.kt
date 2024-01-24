@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -45,6 +46,19 @@ class CarDetailFragment() : Fragment() {
             isOpen = false
         }
 
+        if(resources.configuration.screenWidthDp < 600){
+            val toolbar = binding.toolbar
+            (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+            // Display the back arrow in the toolbar
+            (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            // Handle the navigation action when the back arrow is clicked
+            toolbar?.setNavigationOnClickListener {
+                activity?.onBackPressedDispatcher?.onBackPressed()
+            }
+        }
+
         binding?.floatButton?.setOnClickListener {
             binding?.isOpen = !binding?.isOpen!!
         }
@@ -61,6 +75,7 @@ class CarDetailFragment() : Fragment() {
                     Toast.makeText(context,it.context.getString(R.string.delete_confirmed,carViewModel.currentCar.value?.brand,carViewModel.currentCar.value?.model),
                         Toast.LENGTH_SHORT).show()
                     carViewModel.setDeletion(true)
+                    carViewModel.currentCar
                     binding.isOpen = false
                 }
                 .show()

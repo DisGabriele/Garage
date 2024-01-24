@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
@@ -25,6 +26,8 @@ import kotlinx.coroutines.launch
 
 
 class CarViewModel(application: Application, private val carDao: CarDao): ViewModel() {
+
+    val carsList: LiveData<List<Car>> = collectCars().asLiveData()
 
     private var _deletion: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
     val deletion: LiveData<Boolean> get() = _deletion
@@ -80,8 +83,6 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
             }
         }
     }
-
-
 
     fun collectCars(): Flow<List<Car>> = carDao.getAll().flowOn(Dispatchers.IO)
 

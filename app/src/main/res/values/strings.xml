@@ -27,6 +27,7 @@
     <string name="confirm_dialog">Yes</string>
     <string name="search">Brand,model,plate</string>
     <string name="edit">Edit</string>
+    <string name="edit_this_car">Edit this car</string>
     <string name="remove">Remove</string>
     <array name="supply_list">
         <item>GASOLINE</item>
