@@ -23,21 +23,22 @@ import com.example.garage.viewModel.CarViewModelFactory
 import java.util.Calendar
 import java.util.Locale
 
-enum class ValidationError{
-    EMPTY,KM,YEAR,GOOD
+enum class ValidationError {
+    EMPTY, KM, YEAR, GOOD
 }
 
 class AddCarFragment : Fragment() {
 
     private var status = ValidationError.GOOD
 
-    private val navigationArgs : AddCarFragmentArgs by navArgs()
+    private val navigationArgs: AddCarFragmentArgs by navArgs()
 
     private var _binding: FragmentAddCarBinding? = null
     private val binding get() = _binding!!
 
     private val carViewModel: CarViewModel by activityViewModels {
-        CarViewModelFactory(activity?.application!!,
+        CarViewModelFactory(
+            activity?.application!!,
             (activity?.application!! as BaseApplication).database
                 .carDao()
         )
@@ -80,12 +81,13 @@ class AddCarFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
-        val logoNames = binding.viewModel!!.logoList.value!!.map{ logo ->
+        val logoNames = binding.viewModel!!.logoList.value!!.map { logo ->
             logo.name.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(
                     Locale.getDefault()
                 ) else it.toString()
-            } }.sorted()
+            }
+        }.sorted()
 
         val brandAdapter = ArrayAdapter(
             requireActivity(),
@@ -104,27 +106,27 @@ class AddCarFragment : Fragment() {
             requireActivity(),
             R.layout.autocomplete,
             supplyList
-            )
+        )
 
-        if(resources.configuration.screenWidthDp > 600 || resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
-        binding.modelInput.setOnFocusChangeListener{ model, _ ->
-            if(model.hasFocus()){
-                binding.modelInput.showDropDown()
+        if (resources.configuration.screenWidthDp > 600 || resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            binding.modelInput.setOnFocusChangeListener { model, _ ->
+                if (model.hasFocus()) {
+                    binding.modelInput.showDropDown()
+                } else {
+                    binding.modelInput.dismissDropDown()
+                }
             }
-            else{
-                binding.modelInput.dismissDropDown()
-            }
-        }
         }
 
         binding.brandInput.setAdapter(brandAdapter)
         binding.brandInput.doAfterTextChanged { brand ->
-            if(logoNames.contains(brand.toString())){
+            if (logoNames.contains(brand.toString())) {
                 binding.modelInput.setAdapter(
                     ArrayAdapter(
                         requireActivity(),
                         R.layout.autocomplete,
-                        binding.viewModel?.logoList?.value?.filter { logo -> logo.name == brand.toString() }?.get(0)?.models ?: listOf (")")
+                        binding.viewModel?.logoList?.value?.filter { logo -> logo.name == brand.toString() }
+                            ?.get(0)?.models ?: listOf(")")
                     )
                 )
             }
@@ -133,14 +135,13 @@ class AddCarFragment : Fragment() {
 
         binding.supplyInput.adapter = supplyAdapter
 
-        if(!navigationArgs.addEdit) {
+        if (!navigationArgs.addEdit) {
             binding.toolbar?.title = resources.getString(R.string.add_a_car)
             binding.supplyInput.setSelection(0)
             binding.saveBtn.setOnClickListener {
                 addCar()
             }
-        }
-        else{
+        } else {
             binding.toolbar?.title = resources.getString(R.string.edit)
             binding.brandInput.setText(carViewModel.currentCar.value?.brand)
             binding.modelInput.setText(carViewModel.currentCar.value?.model)
@@ -157,89 +158,117 @@ class AddCarFragment : Fragment() {
 
     }
 
-    private fun isValidEntry(){
-        if(     binding.brandInput.text.isNullOrEmpty() ||
-                binding.modelInput.text.isNullOrEmpty() ||
-                binding.kmInput.text.isNullOrEmpty() ||
-                binding.yearInput.text.isNullOrEmpty() ||
-                binding.displacementInput.text.isNullOrEmpty() ||
-                binding.plateInput.text.isNullOrEmpty()
-            )
-        {
+    private fun isValidEntry() {
+        if (binding.brandInput.text.isNullOrEmpty() ||
+            binding.modelInput.text.isNullOrEmpty() ||
+            binding.kmInput.text.toString().isNullOrEmpty() ||
+            binding.yearInput.text.isNullOrEmpty() ||
+            binding.displacementInput.text.isNullOrEmpty() ||
+            binding.plateInput.text.isNullOrEmpty()
+        ) {
             status = ValidationError.EMPTY
-            Toast.makeText(context,resources.getString(R.string.error_message),Toast.LENGTH_SHORT).show()
-        }
-        else if(binding.yearInput.text.toString().toInt() > Calendar.getInstance().get(Calendar.YEAR) || binding.yearInput.text.toString().toInt() < 1886)
-        {
+            Toast.makeText(context, resources.getString(R.string.error_message), Toast.LENGTH_SHORT)
+                .show()
+        } else if (binding.yearInput.text.toString().toInt() > Calendar.getInstance()
+                .get(Calendar.YEAR) || binding.yearInput.text.toString().toInt() < 1886
+        ) {
             status = ValidationError.YEAR
-            Toast.makeText(context,resources.getString(R.string.year_error_message),Toast.LENGTH_SHORT).show()
-        }
-        else if(binding.kmInput.text.toString().toDouble() < 0){
+            Toast.makeText(
+                context,
+                resources.getString(R.string.year_error_message),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (binding.kmInput.text.toString().toDouble() < 0) {
             status = ValidationError.KM
-            Toast.makeText(context,resources.getString(R.string.negative_km_error_message),Toast.LENGTH_SHORT).show()
-        }
-        else{
+            Toast.makeText(
+                context,
+                resources.getString(R.string.negative_km_error_message),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
             status = ValidationError.GOOD
         }
     }
 
     private fun addCar() {
         isValidEntry()
-        if(status == ValidationError.GOOD){
-                val logo = binding.viewModel?.logoList?.value?.filter { logo -> logo.name.equals(binding.brandInput.text.toString(),true) }?.get(0)?.logo ?: "empty"
+        if (status == ValidationError.GOOD) {
+            var logo = "empty"
+            val logos = binding.viewModel?.logoList?.value?.filter { logo ->
+                logo.name.equals(
+                    binding.brandInput.text.toString(),
+                    true
+                )
+            }
+            if (logos?.isNotEmpty() == true) {
+                logo = logos[0].logo
+            }
 
             carViewModel.addCar(
-                    binding.modelInput.text.toString(),
-                    binding.brandInput.text.toString(),
-                    logo,
-                    binding.yearInput.text.toString().toInt(),
-                    binding.displacementInput.text.toString().toInt(),
-                    binding.supplyInput.selectedItem.toString(),
-                    binding.plateInput.text.toString(),
-                    binding.kmInput.text.toString().toDouble()
-                )
-
-                if(binding.kmInput.text.toString().toDouble() >= 10000){
-                    carViewModel.carServiceReminder(binding.brandInput.text.toString() + " " + binding.modelInput.text.toString())
-                }
-
-                val action = AddCarFragmentDirections
-                    .actionAddCarFragmentToCarListFragment(true)
-                findNavController().navigate(action)
-        }
-
-    }
-
-    private fun updateCar() {
-        isValidEntry()
-        if(binding.kmInput.text.toString().toDouble() < carViewModel.currentCar.value!!.km){
-            status = ValidationError.KM
-            Toast.makeText(context,resources.getString(R.string.less_km_error_message),Toast.LENGTH_SHORT).show()
-        }
-        if (status == ValidationError.GOOD) {
-            val logo = binding.viewModel?.logoList?.value?.filter { logo -> logo.name.equals(binding.brandInput.text.toString(),true) }?.get(0)?.logo ?: "empty"
-
-            val updatedCar = Car(
-                carViewModel.currentCar.value!!.id,
                 binding.modelInput.text.toString(),
-                binding.yearInput.text.toString().toInt(),
                 binding.brandInput.text.toString(),
                 logo,
+                binding.yearInput.text.toString().toInt(),
                 binding.displacementInput.text.toString().toInt(),
                 binding.supplyInput.selectedItem.toString(),
                 binding.plateInput.text.toString(),
                 binding.kmInput.text.toString().toDouble()
             )
 
-            if( updatedCar.km.minus(carViewModel.currentCar.value!!.km) >= 10000){
-                carViewModel.carServiceReminder(updatedCar.brand + " " + updatedCar.model)
+            if (binding.kmInput.text.toString().toDouble() >= 10000) {
+                carViewModel.carServiceReminder(binding.brandInput.text.toString() + " " + binding.modelInput.text.toString())
             }
-
-            carViewModel.editCar(updatedCar)
 
             val action = AddCarFragmentDirections
                 .actionAddCarFragmentToCarListFragment(true)
             findNavController().navigate(action)
+        }
+
+    }
+
+    private fun updateCar() {
+        isValidEntry()
+        if (status == ValidationError.GOOD) {
+            if (binding.kmInput.text.toString().toDouble() < carViewModel.currentCar.value!!.km) {
+                status = ValidationError.KM
+                Toast.makeText(
+                    context,
+                    resources.getString(R.string.less_km_error_message),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                var logo = "empty"
+                val logos = binding.viewModel?.logoList?.value?.filter { logo ->
+                    logo.name.equals(
+                        binding.brandInput.text.toString(),
+                        true
+                    )
+                }
+                if (logos?.isNotEmpty() == true) {
+                    logo = logos[0].logo
+                }
+                val updatedCar = Car(
+                    carViewModel.currentCar.value!!.id,
+                    binding.modelInput.text.toString(),
+                    binding.yearInput.text.toString().toInt(),
+                    binding.brandInput.text.toString(),
+                    logo,
+                    binding.displacementInput.text.toString().toInt(),
+                    binding.supplyInput.selectedItem.toString(),
+                    binding.plateInput.text.toString(),
+                    binding.kmInput.text.toString().toDouble()
+                )
+
+                if (updatedCar.km.minus(carViewModel.currentCar.value!!.km) >= 10000) {
+                    carViewModel.carServiceReminder(updatedCar.brand + " " + updatedCar.model)
+                }
+
+                carViewModel.editCar(updatedCar)
+
+                val action = AddCarFragmentDirections
+                    .actionAddCarFragmentToCarListFragment(true)
+                findNavController().navigate(action)
+            }
         }
     }
 }

@@ -59,18 +59,18 @@ class CarDetailFragment() : Fragment() {
             }
         }
 
-        binding?.floatButton?.setOnClickListener {
+        binding?.floatButtonDetail?.setOnClickListener {
             binding?.isOpen = !binding?.isOpen!!
         }
 
-        binding.editCarBtn?.setOnClickListener{
+        binding.editCarBtnDetail?.setOnClickListener{
             val action = CarListFragmentDirections
                 .actionCarListFragmentToAddCarFragment(true)
             findNavController().navigate(action)
         }
 
         binding.editCarText?.setOnClickListener{
-            binding.editCarBtn?.performClick()
+            binding.editCarBtnDetail?.performClick()
         }
 
         binding.deleteBtn?.setOnClickListener{

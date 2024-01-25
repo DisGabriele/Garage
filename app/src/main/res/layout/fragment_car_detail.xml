@@ -225,8 +225,8 @@
             android:id="@+id/buttonContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/floatButton"
-            app:layout_constraintRight_toRightOf="@id/floatButton"
+            app:layout_constraintBottom_toTopOf="@id/floatButtonDetail"
+            app:layout_constraintRight_toRightOf="@id/floatButtonDetail"
             android:visibility="@{isOpen ? 0 : 4}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -234,7 +234,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/edit_car_btn"
+                    android:id="@+id/edit_car_btn_detail"
                     style="@style/Widget.Garage.FloatButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -248,9 +248,9 @@
                     android:id="@+id/edit_car_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/edit_car_btn"
-                    app:layout_constraintEnd_toEndOf="@id/edit_car_btn"
-                    app:layout_constraintBottom_toBottomOf="@id/edit_car_btn"
+                    app:layout_constraintTop_toTopOf="@id/edit_car_btn_detail"
+                    app:layout_constraintEnd_toEndOf="@id/edit_car_btn_detail"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_car_btn_detail"
                     style="@style/Widget.Garage.TextView"
                     android:textColor="@color/white"
                     android:background="@drawable/float_back"
@@ -265,9 +265,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    app:layout_constraintTop_toBottomOf="@id/edit_car_btn"
+                    app:layout_constraintTop_toBottomOf="@id/edit_car_btn_detail"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/edit_car_btn"
+                    app:layout_constraintEnd_toEndOf="@id/edit_car_btn_detail"
                     style="@style/Widget.Garage.FloatButton"
                     app:maxImageSize="40dp"
                     android:src="@drawable/ic_remove_car"
@@ -295,7 +295,7 @@
         </com.google.android.material.circularreveal.CircularRevealFrameLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatButton"
+            android:id="@+id/floatButtonDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
