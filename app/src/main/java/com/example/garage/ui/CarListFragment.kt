@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,7 +18,6 @@ import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import com.example.garage.R
 import com.example.garage.adapters.CarListAdapter
 import com.example.garage.database.BaseApplication
-import com.example.garage.database.Car
 import com.example.garage.databinding.FragmentCarListBinding
 import com.example.garage.viewModel.CarViewModel
 import com.example.garage.viewModel.CarViewModelFactory
