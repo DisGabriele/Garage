@@ -1,12 +1,16 @@
 package com.example.garage.ui
 
+import android.content.res.Configuration
+import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat.OrientationMode
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -96,7 +100,7 @@ class AddCarFragment : Fragment() {
             supplyList
             )
 
-        /*
+        if(resources.configuration.screenWidthDp > 600 || resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
         binding.modelInput.setOnFocusChangeListener{ model, _ ->
             if(model.hasFocus()){
                 binding.modelInput.showDropDown()
@@ -105,7 +109,7 @@ class AddCarFragment : Fragment() {
                 binding.modelInput.dismissDropDown()
             }
         }
-        */
+        }
 
         binding.brandInput.setAdapter(brandAdapter)
         binding.brandInput.doAfterTextChanged { brand ->

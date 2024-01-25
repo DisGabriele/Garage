@@ -80,7 +80,8 @@ class CarDetailFragment() : Fragment() {
                 .setPositiveButton(it.context.getString(R.string.confirm_dialog)) { _, _ ->
                     Toast.makeText(context,it.context.getString(R.string.delete_confirmed,carViewModel.currentCar.value?.brand,carViewModel.currentCar.value?.model),
                         Toast.LENGTH_SHORT).show()
-                    carViewModel.setDeletion(true)
+                    activity?.onBackPressedDispatcher?.onBackPressed()
+                    carViewModel.deleteCar()
                     binding.isOpen = false
                 }
                 .show()

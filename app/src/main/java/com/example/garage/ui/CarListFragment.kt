@@ -2,6 +2,7 @@ package com.example.garage.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,6 +101,7 @@ class CarListFragment : Fragment() {
                         Toast.makeText(context,it.context.getString(R.string.delete_confirmed,carViewModel.currentCar.value?.brand,carViewModel.currentCar.value?.model),
                             Toast.LENGTH_SHORT).show()
                         carViewModel.deleteCar()
+                        carViewModel.setDeletion(true)
                     }
                     .show()
             }
@@ -122,11 +124,18 @@ class CarListFragment : Fragment() {
         carViewModel.carsList.observe(viewLifecycleOwner){carList ->
             adapter.submitList(carList)
             if (carList.isNotEmpty()) {
-                if(!carViewModel.currentCar.isInitialized){
+                if(carViewModel.deletion.value!! || !carViewModel.currentCar.isInitialized){
+                    if(resources.configuration.screenWidthDp <= 600){
+                        binding.carsList.adapter = adapter
+                    }
                 carViewModel.updateCurrentCar(carList[0])
+                    if(carViewModel.deletion.value!!){
+                     carViewModel.setDeletion(false)
+                    }
                 }
             }
         }
+
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -134,6 +143,7 @@ class CarListFragment : Fragment() {
         )
 
         binding?.floatButton?.setOnClickListener {
+            Log.d("ciao",carViewModel.carsList.value?.size.toString())
             binding?.isOpen = !binding?.isOpen!!
         }
 
@@ -147,18 +157,6 @@ class CarListFragment : Fragment() {
         binding.addCarText.setOnClickListener{
             binding.addCar.performClick()
         }
-
-
-        carViewModel.deletion.observe(viewLifecycleOwner) {
-            if (it == true) {
-                binding.carsPanel.closePane()
-                lifecycle.coroutineScope.launch {
-                    carViewModel.deleteCar()
-                }
-                carViewModel.setDeletion(false)
-            }
-        }
-
 
         binding.searchBtn.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
