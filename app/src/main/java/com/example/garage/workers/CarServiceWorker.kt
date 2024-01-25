@@ -11,13 +11,16 @@ import androidx.work.WorkerParameters
 import com.example.garage.MainActivity
 import com.example.garage.R
 import com.example.garage.database.BaseApplication
-import com.example.garage.preferences.SharedPreferencesHelper
+import kotlin.random.Random
 
 
 class CarServiceWorker(
     context: Context,
     workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
+
+
+    val notificationId = 17
 
     @SuppressLint("MissingPermission")
     override fun doWork(): Result {
@@ -38,16 +41,11 @@ class CarServiceWorker(
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
 
-        val notificationId = SharedPreferencesHelper.getNotificationIdCounter(applicationContext)
 
         with(NotificationManagerCompat.from(applicationContext)) {
-            notify(notificationId, builder.build())
+            notify(Random.nextInt(), builder.build())
         }
-
-        SharedPreferencesHelper.incrementAndSaveNotificationIdCounter(applicationContext)
-
             return Result.success()
-
     }
 
     companion object {

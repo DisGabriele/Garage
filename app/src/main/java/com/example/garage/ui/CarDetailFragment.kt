@@ -12,10 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.garage.R
 import com.example.garage.database.BaseApplication
 import com.example.garage.databinding.FragmentCarDetailBinding
-import com.example.garage.databinding.FragmentCarDetailBindingLargeImpl
 import com.example.garage.viewModel.CarViewModel
 import com.example.garage.viewModel.CarViewModelFactory
-import kotlin.reflect.jvm.internal.impl.types.checker.TypeRefinementSupport.Enabled
 
 class CarDetailFragment() : Fragment() {
 

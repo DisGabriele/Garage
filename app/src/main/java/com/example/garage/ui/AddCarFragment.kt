@@ -1,16 +1,14 @@
 package com.example.garage.ui
 
 import android.content.res.Configuration
-import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.LinearLayoutCompat.OrientationMode
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -70,9 +68,17 @@ class AddCarFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().popBackStack()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         val logoNames = binding.viewModel!!.logoList.value!!.map{ logo ->
             logo.name.replaceFirstChar {
@@ -198,7 +204,7 @@ class AddCarFragment : Fragment() {
                 }
 
                 val action = AddCarFragmentDirections
-                    .actionAddCarFragmentToCarListFragment(false)
+                    .actionAddCarFragmentToCarListFragment(true)
                 findNavController().navigate(action)
         }
 
@@ -225,7 +231,7 @@ class AddCarFragment : Fragment() {
                 binding.kmInput.text.toString().toDouble()
             )
 
-            if(updatedCar.km - carViewModel.currentCar.value!!.km >= 10000){
+            if( updatedCar.km.minus(carViewModel.currentCar.value!!.km) >= 10000){
                 carViewModel.carServiceReminder(updatedCar.brand + " " + updatedCar.model)
             }
 

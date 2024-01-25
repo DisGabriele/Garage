@@ -2,7 +2,6 @@ package com.example.garage.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.slidingpanelayout.widget.SlidingPaneLayout
@@ -22,7 +20,6 @@ import com.example.garage.database.BaseApplication
 import com.example.garage.databinding.FragmentCarListBinding
 import com.example.garage.viewModel.CarViewModel
 import com.example.garage.viewModel.CarViewModelFactory
-import kotlinx.coroutines.launch
 
 class CarListFragment : Fragment() {
 
@@ -33,7 +30,7 @@ class CarListFragment : Fragment() {
 
     class CarListOnBackPressedCallback(
         private val slidingPaneLayout: SlidingPaneLayout
-    ): OnBackPressedCallback(slidingPaneLayout.isSlideable && slidingPaneLayout.isOpen),
+    ): OnBackPressedCallback(true),
         SlidingPaneLayout.PanelSlideListener{
 
         init {
@@ -72,8 +69,6 @@ class CarListFragment : Fragment() {
         return binding.root
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -83,6 +78,12 @@ class CarListFragment : Fragment() {
             viewModel = carViewModel
             binding.isOpen = false
         }
+
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            CarListOnBackPressedCallback(binding.carsPanel)
+        )
 
         if(resources.configuration.screenWidthDp > 600){
             binding.editCarBtn?.setOnClickListener{
@@ -136,14 +137,7 @@ class CarListFragment : Fragment() {
             }
         }
 
-
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            CarListOnBackPressedCallback(binding.carsPanel)
-        )
-
         binding?.floatButton?.setOnClickListener {
-            Log.d("ciao",carViewModel.carsList.value?.size.toString())
             binding?.isOpen = !binding?.isOpen!!
         }
 
@@ -183,5 +177,18 @@ class CarListFragment : Fragment() {
             adapter.submitList(carViewModel.carsList.value)
             true
         }
+    }
+
+    override fun onResume() {
+
+        if(navigationArgs.addEditPanel){
+            binding.carsPanel.openPane()
+        }
+        super.onResume()
+    }
+
+    override fun onStop() {
+        binding.carsPanel.closePane()
+        super.onStop()
     }
 }

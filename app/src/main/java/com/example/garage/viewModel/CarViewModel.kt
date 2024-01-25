@@ -36,14 +36,11 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
     val currentCar: LiveData<Car> get() = _currentCar
 
     private var _currentCarPosition: MutableLiveData<Int> = MutableLiveData<Int>()
-    val currentCarPosition: LiveData<Int> get() = _currentCarPosition
 
     private var _edit: MutableLiveData<Boolean> = MutableLiveData<Boolean>(false)
-    val edit: LiveData<Boolean> get() = _edit
 
     private val _logoList = MutableLiveData<List<Logo>>(listOf())
     val logoList: LiveData<List<Logo>> get() = _logoList
-
 
     val workManager = WorkManager.getInstance(application.applicationContext)
 
@@ -58,10 +55,6 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
                 }
             }
         }
-    }
-
-    fun setEdit(value: Boolean){
-        _edit.value = value
     }
 
     fun setCarPosition(position: Int){
@@ -165,7 +158,6 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
 
     }
 }
-
 
 class CarViewModelFactory(
     private val application: Application,
