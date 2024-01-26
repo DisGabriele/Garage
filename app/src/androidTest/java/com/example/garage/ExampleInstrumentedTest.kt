@@ -1,10 +1,5 @@
 package com.example.garage
 
-import android.app.Application
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
@@ -12,15 +7,8 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isClickable
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.garage.database.AppDatabase
-import com.example.garage.database.CarDao
-import com.example.garage.viewModel.CarViewModel
-import com.example.garage.viewModel.CarViewModelFactory
 import org.hamcrest.Matchers.not
 import org.junit.Assert.*
 import org.junit.Before
@@ -69,26 +57,26 @@ class ExampleInstrumentedTest {
 
     }
 
-   @Test
-   fun newCarIsDisplayed(){
-       Espresso.onView(ViewMatchers.withText("Brand"))
-           .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    @Test
+    fun newCarIsDisplayed(){
+        Espresso.onView(ViewMatchers.withText("Brand"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-       Espresso.onView(ViewMatchers.withText("Model"))
-           .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("Model"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-       Espresso.onView(ViewMatchers.withText("10000.0 Km"))
-           .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("10000.0 Km"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-       Espresso.onView(ViewMatchers.withText("2016"))
-           .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("2016"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-       Espresso.onView(ViewMatchers.withText("1600"))
-           .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("1600"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
-       Espresso.onView(ViewMatchers.withText("Plate"))
-           .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-   }
+        Espresso.onView(ViewMatchers.withText("Plate"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
 
     @Test
     fun editCar(){
@@ -216,8 +204,8 @@ class ExampleInstrumentedTest {
 
         ViewActions.closeSoftKeyboard()
 
-            Espresso.onView(withId(R.id.save_btn))
-                .perform(click())
+        Espresso.onView(withId(R.id.save_btn))
+            .perform(click())
 
         Thread.sleep(300)
 
@@ -339,7 +327,4 @@ class ExampleInstrumentedTest {
         Espresso.onView(ViewMatchers.withId(R.id.save_btn))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
-
-
-
 }
