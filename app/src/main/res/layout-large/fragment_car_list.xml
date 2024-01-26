@@ -189,8 +189,8 @@
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/search_btn"
-                    android:layout_width="134dp"
-                    android:layout_height="41dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/big_margin"
                     android:background="@drawable/search_back"
                     android:elevation="4dp"
