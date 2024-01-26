@@ -182,7 +182,14 @@ class CarListFragment : Fragment() {
     override fun onResume() {
 
         if(navigationArgs.addEditPanel){
+            if(carViewModel.deletion.value != true){
             binding.carsPanel.openPane()
+                requireArguments().apply {
+                    getBoolean("add_edit_panel").also {
+                        putBoolean("add_edit_panel",false)
+                    }
+                }
+            }
         }
         super.onResume()
     }
