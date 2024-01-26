@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.Toolbar"
         android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/form_container"

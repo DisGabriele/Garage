@@ -33,6 +33,7 @@
         style="@style/Widget.MaterialComponents.Toolbar"
         app:title="@{viewModel.currentCar.brand + ' ' + viewModel.currentCar.model}"
         android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/detail_container"
