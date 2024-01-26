@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <com.google.android.material.card.MaterialCardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="4dp"
-    android:background="@color/light_grey"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:background="?attr/colorSecondary"
-        >
+        android:background="?attr/colorSurface">
 
         <ImageView
             android:id="@+id/carImage"
@@ -29,6 +26,7 @@
         <TextView
             android:id="@+id/model"
             style="@style/Widget.Garage.TextView"
+            android:minHeight="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
@@ -40,11 +38,32 @@
         <TextView
             android:id="@+id/year"
             style="@style/Widget.Garage.TextView"
+            android:minHeight="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/model"
             app:layout_constraintTop_toBottomOf="@id/model"
-            app:layout_constraintBottom_toBottomOf="@id/carImage"
+            app:layout_constraintBottom_toTopOf="@id/plate"
             tools:text="Anno" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/plate"
+            style="@style/Widget.Garage.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="2dp"
+            app:layout_constraintStart_toStartOf="@id/year"
+            app:layout_constraintTop_toBottomOf="@id/year"
+            app:layout_constraintBottom_toBottomOf="@id/carImage"
+            tools:text="Targa" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:layout_constraintTop_toBottomOf="@id/carImage"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp"
+            android:background="?attr/dividerHorizontal"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

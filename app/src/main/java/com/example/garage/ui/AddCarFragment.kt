@@ -24,7 +24,7 @@ import java.util.Calendar
 import java.util.Locale
 
 enum class ValidationError {
-    EMPTY, KM, YEAR, GOOD
+    EMPTY, KM, YEAR, GOOD, PlATE
 }
 
 class AddCarFragment : Fragment() {
@@ -185,6 +185,37 @@ class AddCarFragment : Fragment() {
                 resources.getString(R.string.negative_km_error_message),
                 Toast.LENGTH_SHORT
             ).show()
+        } else if (carViewModel.carsList.value?.isNotEmpty() == true) {
+            var carPlateList = carViewModel.carsList.value!!.filter { car ->
+                car.plate.equals(
+                    binding.plateInput.text.toString(),
+                    true
+                )
+            }
+            if (!navigationArgs.addEdit) {
+                if (carPlateList.isNotEmpty()) {
+                    status = ValidationError.PlATE
+                    Toast.makeText(
+                        context,
+                        resources.getString(R.string.plate_error_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    status = ValidationError.GOOD
+                }
+            } else {
+                carPlateList = carPlateList.minus(carViewModel.currentCar.value!!)
+                if (carPlateList.isNotEmpty()) {
+                    status = ValidationError.PlATE
+                    Toast.makeText(
+                        context,
+                        resources.getString(R.string.plate_error_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    status = ValidationError.GOOD
+                }
+            }
         } else {
             status = ValidationError.GOOD
         }
@@ -254,8 +285,8 @@ class AddCarFragment : Fragment() {
                     binding.brandInput.text.toString(),
                     logo,
                     binding.displacementInput.text.toString().toInt(),
-                    binding.supplyInput.selectedItem.toString(),
                     binding.plateInput.text.toString(),
+                    binding.supplyInput.selectedItem.toString(),
                     binding.kmInput.text.toString().toDouble()
                 )
 

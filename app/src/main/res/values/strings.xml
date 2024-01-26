@@ -20,6 +20,7 @@
     <string name="year_error_message">Set a Valid Year</string>
     <string name="negative_km_error_message">You can\'t give negative Km!</string>
     <string name="supply_error_message">Enter a valid Supply!</string>
+    <string name="plate_error_message">A car with this plate already exist</string>
     <string name="less_km_error_message">You can\'t reduce the kilometers traveled by a car!</string>
     <string name="delete">Delete</string>
     <string name="delete_dialog">Remove %1$s  %2$s from the garage?</string>
