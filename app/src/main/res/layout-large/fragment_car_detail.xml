@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            carImage="@{viewModel.currentCar.logo}"/>
+            carLogo="@{viewModel.currentCar.logo}"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/brand_label_detail"
@@ -202,6 +202,19 @@
                 carPlate="@{viewModel.currentCar.plate}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/model_image_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="125dp"
+            android:minWidth="125dp"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintTop_toBottomOf="@id/plate_label_detail"
+            app:layout_constraintStart_toStartOf="@id/plate_label_detail"
+            app:layout_constraintEnd_toEndOf="@id/plate_label_detail"
+            carImage="@{viewModel.currentCar.image}"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

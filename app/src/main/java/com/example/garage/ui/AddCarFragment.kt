@@ -1,14 +1,20 @@
 package com.example.garage.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,8 +26,10 @@ import com.example.garage.database.Car
 import com.example.garage.databinding.FragmentAddCarBinding
 import com.example.garage.viewModel.CarViewModel
 import com.example.garage.viewModel.CarViewModelFactory
+import java.io.ByteArrayOutputStream
 import java.util.Calendar
 import java.util.Locale
+
 
 enum class ValidationError {
     EMPTY, KM, YEAR, GOOD, PlATE
@@ -36,6 +44,14 @@ class AddCarFragment : Fragment() {
     private var _binding: FragmentAddCarBinding? = null
     private val binding get() = _binding!!
 
+    private val changeImage = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            binding.carModelImage.setImageURI(it.data?.data)
+        }
+    }
+
     private val carViewModel: CarViewModel by activityViewModels {
         CarViewModelFactory(
             activity?.application!!,
@@ -48,7 +64,7 @@ class AddCarFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAddCarBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -135,14 +151,19 @@ class AddCarFragment : Fragment() {
 
         binding.supplyInput.adapter = supplyAdapter
 
+        binding.editImageBtn.setOnClickListener{
+            addCarImage()
+        }
+
         if (!navigationArgs.addEdit) {
-            binding.toolbar?.title = resources.getString(R.string.add_a_car)
+            binding.toolbar.title = resources.getString(R.string.add_a_car)
             binding.supplyInput.setSelection(0)
+
             binding.saveBtn.setOnClickListener {
                 addCar()
             }
         } else {
-            binding.toolbar?.title = resources.getString(R.string.edit)
+            binding.toolbar.title = resources.getString(R.string.edit)
             binding.brandInput.setText(carViewModel.currentCar.value?.brand)
             binding.modelInput.setText(carViewModel.currentCar.value?.model)
             binding.kmInput.setText(carViewModel.currentCar.value?.km.toString())
@@ -158,10 +179,25 @@ class AddCarFragment : Fragment() {
 
     }
 
+
+    private fun addCarImage(){
+        val pickImg = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+
+        changeImage.launch(pickImg)
+    }
+
+    private fun Bitmap.toByteArray(): ByteArray{
+        val stream = ByteArrayOutputStream()
+        compress(Bitmap.CompressFormat.PNG, 100, stream)
+        return stream.toByteArray()
+
+    }
+
+
     private fun isValidEntry() {
         if (binding.brandInput.text.isNullOrEmpty() ||
             binding.modelInput.text.isNullOrEmpty() ||
-            binding.kmInput.text.toString().isNullOrEmpty() ||
+            binding.kmInput.text.toString().isEmpty() ||
             binding.yearInput.text.isNullOrEmpty() ||
             binding.displacementInput.text.isNullOrEmpty() ||
             binding.plateInput.text.isNullOrEmpty()
@@ -225,8 +261,8 @@ class AddCarFragment : Fragment() {
         isValidEntry()
         if (status == ValidationError.GOOD) {
             var logo = "empty"
-            val logos = binding.viewModel?.logoList?.value?.filter { logo ->
-                logo.name.equals(
+            val logos = binding.viewModel?.logoList?.value?.filter {
+                it.name.equals(
                     binding.brandInput.text.toString(),
                     true
                 )
@@ -240,6 +276,7 @@ class AddCarFragment : Fragment() {
                 binding.brandInput.text.toString(),
                 logo,
                 binding.yearInput.text.toString().toInt(),
+                (binding.carModelImage.drawable.toBitmap()).toByteArray(),
                 binding.displacementInput.text.toString().toInt(),
                 binding.supplyInput.selectedItem.toString(),
                 binding.plateInput.text.toString(),
@@ -269,8 +306,8 @@ class AddCarFragment : Fragment() {
                 ).show()
             } else {
                 var logo = "empty"
-                val logos = binding.viewModel?.logoList?.value?.filter { logo ->
-                    logo.name.equals(
+                val logos = binding.viewModel?.logoList?.value?.filter {
+                    it.name.equals(
                         binding.brandInput.text.toString(),
                         true
                     )
@@ -284,6 +321,7 @@ class AddCarFragment : Fragment() {
                     binding.yearInput.text.toString().toInt(),
                     binding.brandInput.text.toString(),
                     logo,
+                    (binding.carModelImage.drawable.toBitmap()).toByteArray(),
                     binding.displacementInput.text.toString().toInt(),
                     binding.plateInput.text.toString(),
                     binding.supplyInput.selectedItem.toString(),

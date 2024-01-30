@@ -26,7 +26,6 @@ class BaseApplication : Application() {
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
-
     }
 
     companion object {

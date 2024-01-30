@@ -1,9 +1,8 @@
 package com.example.garage.adapters
 
-import android.view.View
+import android.graphics.BitmapFactory
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.example.garage.R
@@ -44,9 +43,15 @@ fun loadPlate(textView: TextView, data: String?) {
     textView.text = data ?: "Plate"
 }
 
-@BindingAdapter("carImage")
-fun loadImage(imageView: ImageView, data: String?) {
+@BindingAdapter("carLogo")
+fun loadLogo(imageView: ImageView, data: String?) {
     imageView.load(data){
         error(R.drawable.ic_car)
     }
+}
+
+@BindingAdapter("carImage")
+fun loadImage(imageView: ImageView, data: ByteArray?){
+    val bmp = data?.let { BitmapFactory.decodeByteArray(data, 0, it.size) }
+    imageView.setImageBitmap(bmp)
 }

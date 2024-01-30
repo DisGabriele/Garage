@@ -180,17 +180,44 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/save_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:textSize="16dp"
-            android:padding="16dp"
-            android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/plate_label" />
+            <ImageButton
+                android:id="@+id/car_model_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="125dp"
+                android:minHeight="125dp"
+                android:src="@drawable/ic_car"
+                android:background="#00000000"
+                android:layout_marginTop="@dimen/big_margin"
+                app:layout_constraintTop_toBottomOf="@+id/plate_label"
+                app:layout_constraintStart_toStartOf="@id/plate_label"
+                app:layout_constraintEnd_toEndOf="@id/plate_label"
+                app:layout_constraintBottom_toTopOf="@id/edit_image_btn"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit_image_btn"
+                style="@style/Widget.Garage.FloatButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintTop_toBottomOf="@id/car_model_image"
+                app:layout_constraintStart_toStartOf="@id/car_model_image"
+                app:layout_constraintBottom_toTopOf="@id/save_btn"
+                app:layout_constraintEnd_toEndOf="@id/car_model_image"
+                android:layout_marginVertical="@dimen/big_margin"
+                app:maxImageSize="40dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:padding="16dp"
+                android:layout_marginTop="@dimen/big_margin"
+                android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_image_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

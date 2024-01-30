@@ -60,7 +60,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            carImage="@{viewModel.currentCar.logo}"/>
+            carLogo="@{viewModel.currentCar.logo}"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/brand_label_detail"
@@ -222,6 +222,18 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageView
+            android:id="@+id/model_image_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="125dp"
+            android:minWidth="125dp"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintTop_toBottomOf="@id/plate_label_detail"
+            app:layout_constraintStart_toStartOf="@id/plate_label_detail"
+            app:layout_constraintEnd_toEndOf="@id/plate_label_detail"
+            carImage="@{viewModel.currentCar.image}"/>
+
         <com.google.android.material.circularreveal.CircularRevealFrameLayout
             android:id="@+id/buttonContent"
             android:layout_width="wrap_content"
@@ -301,7 +313,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/plate_label_detail"
+            app:layout_constraintTop_toBottomOf="@id/model_image_detail"
             android:layout_marginTop="@dimen/big_margin"
             style="@style/Widget.Garage.FloatButton"
             android:visibility="visible"

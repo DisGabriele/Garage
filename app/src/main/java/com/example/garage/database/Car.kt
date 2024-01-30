@@ -28,6 +28,9 @@ data class Car(
     @NotNull
     val logo: String,
 
+    @ColumnInfo(name = "image", typeAffinity = ColumnInfo.BLOB)
+    val image: ByteArray?,
+
     @ColumnInfo(name = "displacement")
     @NotNull
     val displacement: Int,
