@@ -226,12 +226,12 @@
             android:id="@+id/model_image_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="125dp"
-            android:minWidth="125dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             android:layout_marginTop="@dimen/big_margin"
             app:layout_constraintTop_toBottomOf="@id/plate_label_detail"
-            app:layout_constraintStart_toStartOf="@id/plate_label_detail"
-            app:layout_constraintEnd_toEndOf="@id/plate_label_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             carImage="@{viewModel.currentCar.image}"/>
 
         <com.google.android.material.circularreveal.CircularRevealFrameLayout
@@ -277,7 +277,6 @@
                     android:id="@+id/delete_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     app:layout_constraintTop_toBottomOf="@id/edit_car_btn_detail"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/edit_car_btn_detail"
