@@ -28,6 +28,7 @@
             style="@style/Widget.Garage.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="2dp"
             android:layout_marginStart="@dimen/default_margin"
             tools:text="Modello"
             app:layout_constraintBottom_toTopOf="@id/year"
@@ -37,12 +38,24 @@
         <TextView
             android:id="@+id/year"
             style="@style/Widget.Garage.TextView"
+            android:minHeight="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/model"
             app:layout_constraintTop_toBottomOf="@id/model"
-            app:layout_constraintBottom_toBottomOf="@id/carImage"
+            app:layout_constraintBottom_toTopOf="@id/plate"
             tools:text="Anno" />
+
+        <TextView
+            android:id="@+id/plate"
+            style="@style/Widget.Garage.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="2dp"
+            app:layout_constraintStart_toStartOf="@id/year"
+            app:layout_constraintTop_toBottomOf="@id/year"
+            app:layout_constraintBottom_toBottomOf="@id/carImage"
+            tools:text="Targa" />
 
         <View
             android:layout_width="match_parent"

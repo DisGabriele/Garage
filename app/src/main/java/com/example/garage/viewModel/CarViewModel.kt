@@ -67,7 +67,7 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
     }
 
     fun updateCurrentCar(car: Car){
-        _currentCar.value = car
+        _currentCar.postValue(car)
     }
 
     fun deleteCar() {
@@ -89,6 +89,7 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
         brand: String,
         logo: String,
         year: Int,
+        image: ByteArray,
         displacement: Int,
         supply: String,
         plate: String,
@@ -100,6 +101,7 @@ class CarViewModel(application: Application, private val carDao: CarDao): ViewMo
             brand = brand,
             logo = logo,
             year = year,
+            image = image,
             displacement = displacement,
             supply = supply,
             plate = plate,

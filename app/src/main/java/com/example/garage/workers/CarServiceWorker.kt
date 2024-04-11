@@ -19,9 +19,6 @@ class CarServiceWorker(
     workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
 
-
-    val notificationId = 17
-
     @SuppressLint("MissingPermission")
     override fun doWork(): Result {
             val intent = Intent(applicationContext, MainActivity::class.java).apply {

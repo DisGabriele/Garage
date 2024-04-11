@@ -19,6 +19,7 @@
     <string name="year_error_message">Inserire un\'anno Valido</string>
     <string name="negative_km_error_message">Inserire almeno 0 Km!</string>
     <string name="supply_error_message">Inserire un\'alimentazione valida!</string>
+    <string name="plate_error_message">Un\' auto con questa targa esiste già!</string>
     <string name="less_km_error_message">Non puoi ridurre i Km percorsi di una macchina!</string>
     <string name="delete">Rimuovi</string>
     <string name="delete_dialog">Rimuovere %1$s  %2$s dal garage?</string>

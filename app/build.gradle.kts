@@ -65,4 +65,5 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestUtil("androidx.test:orchestrator:1.4.2")
     debugImplementation("androidx.fragment:fragment-testing:1.6.2")
+
 }

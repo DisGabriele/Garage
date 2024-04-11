@@ -33,6 +33,7 @@
         style="@style/Widget.MaterialComponents.Toolbar"
         app:title="@{viewModel.currentCar.brand + ' ' + viewModel.currentCar.model}"
         android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/detail_container"
@@ -59,7 +60,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            carImage="@{viewModel.currentCar.logo}"/>
+            carLogo="@{viewModel.currentCar.logo}"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/brand_label_detail"
@@ -221,6 +222,18 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageView
+            android:id="@+id/model_image_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="@dimen/big_margin"
+            app:layout_constraintTop_toBottomOf="@id/plate_label_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            carImage="@{viewModel.currentCar.image}"/>
+
         <com.google.android.material.circularreveal.CircularRevealFrameLayout
             android:id="@+id/buttonContent"
             android:layout_width="wrap_content"
@@ -264,7 +277,6 @@
                     android:id="@+id/delete_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     app:layout_constraintTop_toBottomOf="@id/edit_car_btn_detail"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/edit_car_btn_detail"
@@ -300,7 +312,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/plate_label_detail"
+            app:layout_constraintTop_toBottomOf="@id/model_image_detail"
             android:layout_marginTop="@dimen/big_margin"
             style="@style/Widget.Garage.FloatButton"
             android:visibility="visible"

@@ -24,6 +24,7 @@ class CarListAdapter(
         fun bind(car: Car) {
             binding.model.text = car.brand + " " + car.model
             binding.year.text = car.year.toString()
+            binding.plate.text = car.plate
             binding.carImage.load(car.logo){
                 error(R.drawable.ic_block_car)
             }
